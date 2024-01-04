@@ -29,13 +29,14 @@ export default function Home() {
     setListOfTask([...listOfTask, task])
     // setListOfTask(prevState => [...prevState, task])
 
+    console.log(task)
     console.log(listOfTask)
 
     setTask("");
   }
 
   function handleRemoveTask(item: string) {
-    // console.log(item)
+    console.log(item)
 
     // Alert.alert('Tem certeza que deseja apagar essa tarefa?', [
     //   {
@@ -87,17 +88,6 @@ export default function Home() {
 
       <View style={{ width: 327, height: 2, backgroundColor: "#262626", marginTop: 20, marginBottom: 20 }}></View>
 
-      {/* <FlatList
-        keyExtractor={item => item}
-        data={listOfTask}
-        renderItem={({ item }) => (
-          <List
-            key={item}
-            textTask={task}
-            onRemove={() => handleRemoveTask(item)}
-          />
-        )} /> */}
-
       {
         notHaveTask ? <LabelEmpty /> : <FlatList
           keyExtractor={item => item}
@@ -105,7 +95,7 @@ export default function Home() {
           renderItem={({ item }) => (
             <List
               key={item}
-              textTask={task}
+              textTask={item}
               onRemove={() => handleRemoveTask(item)}
             />
           )} />
