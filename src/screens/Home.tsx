@@ -36,16 +36,20 @@ export default function Home() {
   }
 
   function handleRemoveTask(item: string) {
-    console.log(item)
 
-    // Alert.alert('Tem certeza que deseja apagar essa tarefa?', [
-    //   {
-    //     text: 'Cancelar',
-    //     onPress: () => console.log('Cancel Pressed'),
-    //     style: 'cancel',
-    //   },
-    //   { text: 'OK', onPress: () => console.log('OK Pressed') },
-    // ]);
+    Alert.alert('Tem certeza que deseja apagar essa tarefa', '', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      {
+        text: 'Sim',
+        onPress: () => setListOfTask(prevState => prevState.filter(task => task !== item))
+      },
+    ]);
+
+    setNotHaveTask(true);
+
   }
 
   return (

@@ -16,6 +16,7 @@ export default function List({ textTask, onRemove }: IProps) {
       <Text style={styles.text}>{textTask}</Text>
       <TouchableOpacity
         onPress={onRemove}
+        style={{  width: 20, height: 20, justifyContent: "center", alignItems: "center" }}
       >
         <Image source={require('../../../assets/Layer2.png')} style={{ width: 10, height: 14 }} />
       </TouchableOpacity>
