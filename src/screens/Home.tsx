@@ -1,35 +1,143 @@
-import { View, StyleSheet, Image, Text } from "react-native";
-import TodoDescription from "../components/TodoDescription";
+import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity, FlatList, Alert } from "react-native";
+import { useState } from "react";
+import List from "../components/List";
+import LabelEmpty from "../components/LabelEmpty";
 
 export default function Home() {
+  const [task, setTask] = useState("");
+  const [listOfTask, setListOfTask] = useState<string[]>
+    ([])
+  const [notHaveTask, setNotHaveTask] = useState(true);
+
+  function handleListWithTasks() {
+    if (task.length <= 3) {
+      alert("Por favor adicione uma tarefa");
+      setTask("");
+      return
+    }
+
+    if (listOfTask.includes(task)) {
+      Alert.alert("Essa tarefa já foi adicionada");
+      setTask("");
+      return
+    }
+
+    // console.log(task)
+
+    setNotHaveTask(false);
+
+    setListOfTask([...listOfTask, task])
+    // setListOfTask(prevState => [...prevState, task])
+
+    console.log(listOfTask)
+
+    setTask("");
+  }
+
+  function handleRemoveTask(item: string) {
+    // console.log(item)
+
+    // Alert.alert('Tem certeza que deseja apagar essa tarefa?', [
+    //   {
+    //     text: 'Cancelar',
+    //     onPress: () => console.log('Cancel Pressed'),
+    //     style: 'cancel',
+    //   },
+    //   { text: 'OK', onPress: () => console.log('OK Pressed') },
+    // ]);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
         <Image source={require('../../assets/Logo.png')} />
       </View>
-      <TodoDescription/>
+
+      <View style={styles.containerInput}>
+        <TextInput
+          placeholder="Adicione uma nova tarefa"
+          placeholderTextColor={'#808080'}
+          style={styles.input}
+          value={task}
+          onChangeText={e => setTask(e)}
+        />
+        <TouchableOpacity
+          onPress={handleListWithTasks}
+        >
+          <View style={styles.button}>
+            <Image source={require('../../assets/buttonadd.png')} />
+          </View>
+        </TouchableOpacity>
+      </View>
       <View style={styles.containerReminder}>
         <View style={styles.reminderCriadas}>
           <Text style={styles.criadas}>Criadas</Text>
-          <Text style={styles.label}>0</Text>
+          <View style={{ backgroundColor: "#333333", borderRadius: 9 }}>
+            <Text style={styles.label}>  0</Text>
+          </View>
         </View>
 
         <View style={styles.reminderConcluidas}>
           <Text style={styles.concluidas}>Concluídas</Text>
-          <Text style={styles.label}>0</Text>
+          <View style={{ backgroundColor: "#333333", borderRadius: 9 }}>
+            <Text style={styles.label}>  0</Text>
+          </View>
         </View>
       </View>
 
-      <View style={styles.containerEmpty}>
-        <Image source={require('../../assets/Clipboard.png')} style={{ width: 56, height: 56 }}/>
-        <Text style={styles.textEmptyLarge}>Você ainda não tem tarefas cadastradas</Text>
-        <Text style={styles.textEmptySmall}>Crie tarefas e organize seus itens a fazer</Text>
-      </View>
+      <View style={{ width: 327, height: 2, backgroundColor: "#262626", marginTop: 20, marginBottom: 20 }}></View>
+
+      {/* <FlatList
+        keyExtractor={item => item}
+        data={listOfTask}
+        renderItem={({ item }) => (
+          <List
+            key={item}
+            textTask={task}
+            onRemove={() => handleRemoveTask(item)}
+          />
+        )} /> */}
+
+      {
+        notHaveTask ? <LabelEmpty /> : <FlatList
+          keyExtractor={item => item}
+          data={listOfTask}
+          renderItem={({ item }) => (
+            <List
+              key={item}
+              textTask={task}
+              onRemove={() => handleRemoveTask(item)}
+            />
+          )} />
+      }
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  containerInput: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 18
+  },
+  input: {
+    backgroundColor: "#262626",
+    width: 271,
+    height: 54,
+    borderRadius: 6,
+    color: "#fff",
+    marginRight: 8,
+    padding: 16
+  },
+  button: {
+    width: 52,
+    height: 52,
+    backgroundColor: "#1E6F9F",
+    borderRadius: 6,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
     justifyContent: "center",
     alignItems: "center"
@@ -56,7 +164,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   label: {
-    color: "#D9D9D9"
+    color: "#D9D9D9",
+    width: 25,
+    height: 19,
+    fontWeight: "bold"
   },
   reminderConcluidas: {
     flexDirection: "row",
@@ -67,22 +178,5 @@ const styles = StyleSheet.create({
     color: "#8284FA",
     fontSize: 14,
     fontWeight: "bold",
-  },
-  containerEmpty: {
-    width: 327,
-    height: 208,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 39
-  },
-  textEmptyLarge: {
-    color: "#808080",
-    fontWeight: "bold",
-    fontSize: 14,
-    marginTop: 20
-  },
-  textEmptySmall: {
-    color: "#808080",
-    fontSize: 14
   }
 })
