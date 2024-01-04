@@ -11,6 +11,7 @@ export default function Home() {
   const [countCreated, setCountCreated] = useState(0);
   const [countFinally, setCountFinally] = useState(0);
   const [checkButton, setCheckButton] = useState(true);
+  const [stylesText, setStylesText] = useState(true);
 
   function handleListWithTasks() {
     if (task.length <= 3) {
@@ -27,16 +28,18 @@ export default function Home() {
 
     setNotHaveTask(false);
 
-    setListOfTask([...listOfTask, task])
+    setListOfTask([...listOfTask, task]);
     // setListOfTask(prevState => [...prevState, task])
 
     setTask("");
-    setCountCreated(countCreated + 1)
+    setCountCreated(countCreated + 1);
   }
 
   function handleFinallyTask(item: string) {
     // console.log(item);
-    setCheckButton(!checkButton)
+    setCheckButton(!checkButton);
+    setStylesText(!stylesText);
+    setCountFinally(countFinally + 1)
   }
 
   function handleRemoveTask(item: string) {
@@ -52,6 +55,7 @@ export default function Home() {
       },
     ]);
 
+    setCountCreated(countCreated - 1)
     setNotHaveTask(true);
 
   }
@@ -107,6 +111,7 @@ export default function Home() {
               onFinallyTask={() => handleFinallyTask(item)}
               onRemove={() => handleRemoveTask(item)}
               check={checkButton}
+              ativo={stylesText}
             />
           )} />
       }
