@@ -8,6 +8,9 @@ export default function Home() {
   const [listOfTask, setListOfTask] = useState<string[]>
     ([])
   const [notHaveTask, setNotHaveTask] = useState(true);
+  const [countCreated, setCountCreated] = useState(0);
+  const [countFinally, setCountFinally] = useState(0);
+  const [checkButton, setCheckButton] = useState(true);
 
   function handleListWithTasks() {
     if (task.length <= 3) {
@@ -22,17 +25,18 @@ export default function Home() {
       return
     }
 
-    // console.log(task)
-
     setNotHaveTask(false);
 
     setListOfTask([...listOfTask, task])
     // setListOfTask(prevState => [...prevState, task])
 
-    console.log(task)
-    console.log(listOfTask)
-
     setTask("");
+    setCountCreated(countCreated + 1)
+  }
+
+  function handleFinallyTask(item: string) {
+    // console.log(item);
+    setCheckButton(!checkButton)
   }
 
   function handleRemoveTask(item: string) {
@@ -78,14 +82,14 @@ export default function Home() {
         <View style={styles.reminderCriadas}>
           <Text style={styles.criadas}>Criadas</Text>
           <View style={{ backgroundColor: "#333333", borderRadius: 9 }}>
-            <Text style={styles.label}>  0</Text>
+            <Text style={styles.label}>  {countCreated}</Text>
           </View>
         </View>
 
         <View style={styles.reminderConcluidas}>
           <Text style={styles.concluidas}>Concluídas</Text>
           <View style={{ backgroundColor: "#333333", borderRadius: 9 }}>
-            <Text style={styles.label}>  0</Text>
+            <Text style={styles.label}>  {countFinally}</Text>
           </View>
         </View>
       </View>
@@ -100,7 +104,9 @@ export default function Home() {
             <List
               key={item}
               textTask={item}
+              onFinallyTask={() => handleFinallyTask(item)}
               onRemove={() => handleRemoveTask(item)}
+              check={checkButton}
             />
           )} />
       }
