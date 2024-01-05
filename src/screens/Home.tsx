@@ -36,10 +36,14 @@ export default function Home() {
   }
 
   function handleFinallyTask(item: string) {
-    // console.log(item);
-    setCheckButton(!checkButton);
-    setStylesText(!stylesText);
-    setCountFinally(countFinally + 1)
+    if (item) {
+      console.log(item)
+      setCheckButton(!checkButton);
+    }
+
+    // setCheckButton(!checkButton);
+    // setStylesText(!stylesText);
+    // setCountFinally(countFinally + 1)
   }
 
   function handleRemoveTask(item: string) {
