@@ -1,29 +1,29 @@
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
 interface IProps {
-  textTask: String
+  textTask: string;
   onFinallyTask: () => void;
   onRemove: () => void;
-  check: boolean
-  ativo: boolean
+  check: boolean;
+  ativo: boolean;
 }
 
-type StyleSheet = {
-  ativo: React.CSSProperties;
-  inativo: React.CSSProperties;
-};
-
 export default function List({ textTask, onFinallyTask, onRemove, check, ativo }: IProps) {
-  const estiloDinamico = ativo ? styles.ativo : styles.inativo;
-  
+  const [isItemChecked, setIsItemChecked] = useState(check);
+  const [isItemAtivo, setIsItemAtivo] = useState(ativo);
+  const estiloDinamico = isItemAtivo ? styles.ativo : styles.inativo;
+
+  const handleFinallyTask = () => {
+    setIsItemChecked(!isItemChecked);
+    setIsItemAtivo(!isItemAtivo);
+    onFinallyTask();
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={onFinallyTask}
-      >
-        { 
-          check ? <Image source={require('../../../assets/Layer1.png')} /> : <Image source={require('../../../assets/Layer1closed.png')}/> 
-        }
+      <TouchableOpacity onPress={handleFinallyTask}>
+        {isItemChecked ? <Image source={require('../../../assets/Layer1.png')} /> : <Image source={require('../../../assets/Layer1closed.png')} />}
       </TouchableOpacity>
       <Text style={[estiloDinamico]}>{textTask}</Text>
       <TouchableOpacity
@@ -33,10 +33,10 @@ export default function List({ textTask, onFinallyTask, onRemove, check, ativo }
         <Image source={require('../../../assets/Layer2.png')} style={{ width: 10, height: 14 }} />
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     width: 327,
     height: 64,
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
   },
   ativo: {
     fontSize: 14,
-    color: "#F2F2F2"
+    color: "#F2F2F2",
   },
   inativo: {
     fontSize: 14,
     color: "#808080",
-    textDecorationLine: 'line-through'
-  }
-})
+    textDecorationLine: 'line-through',
+  },
+};

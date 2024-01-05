@@ -14,7 +14,7 @@ export default function Home() {
   const [stylesText, setStylesText] = useState(true);
 
   function handleListWithTasks() {
-    if (task.length <= 3) {
+    if (task.length <= 3 || task === "") {
       alert("Por favor adicione uma tarefa");
       setTask("");
       return
@@ -36,14 +36,9 @@ export default function Home() {
   }
 
   function handleFinallyTask(item: string) {
-    if (item) {
-      console.log(item)
-      setCheckButton(!checkButton);
-    }
-
-    // setCheckButton(!checkButton);
-    // setStylesText(!stylesText);
-    // setCountFinally(countFinally + 1)
+    console.log(`Item clicado: ${item}`);
+    setCheckButton(!checkButton);
+    setStylesText(!stylesText);
   }
 
   function handleRemoveTask(item: string) {
@@ -60,8 +55,6 @@ export default function Home() {
     ]);
 
     setCountCreated(countCreated - 1)
-    setNotHaveTask(true);
-
   }
 
   return (
@@ -106,7 +99,6 @@ export default function Home() {
 
       {
         notHaveTask ? <LabelEmpty /> : <FlatList
-          keyExtractor={item => item}
           data={listOfTask}
           renderItem={({ item }) => (
             <List
