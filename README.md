@@ -60,10 +60,10 @@ Happy coding! 🚀
 
 ### Imagens do app
 
-<img src="" width="800" />
+<img src="./assets/CapturaDeTela1.png" width="800" />
 
 ## Style Guide do App
-<img src="" width="800" />
+<img src="./assets/CapturaDeTela2.png" width="800" />
 
 Clonar repositório
 
