@@ -39,6 +39,14 @@ export default function Home() {
     console.log(`Item clicado: ${item}`);
     setCheckButton(!checkButton);
     setStylesText(!stylesText);
+
+    if (checkButton === true) {
+      setCountFinally(countFinally + 1);
+    }
+
+    if (checkButton === false) {
+      setCountFinally(countFinally - 1);
+    }
   }
 
   function handleRemoveTask(item: string) {
@@ -55,6 +63,11 @@ export default function Home() {
     ]);
 
     setCountCreated(countCreated - 1)
+
+    if (countCreated === 0) {
+      setCountCreated(0);
+      setNotHaveTask(true);
+    }
   }
 
   return (

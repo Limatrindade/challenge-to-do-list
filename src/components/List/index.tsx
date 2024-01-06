@@ -21,7 +21,17 @@ export default function List({ textTask, onFinallyTask, onRemove, check, ativo }
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ 
+        width: 327,
+        height: 64,
+        borderRadius: 8,
+        backgroundColor: "#262626",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        marginBottom: 20,
+        padding: 15
+      }}>
       <TouchableOpacity onPress={handleFinallyTask}>
         {isItemChecked ? <Image source={require('../../../assets/Layer1.png')} /> : <Image source={require('../../../assets/Layer1closed.png')} />}
       </TouchableOpacity>
@@ -37,17 +47,6 @@ export default function List({ textTask, onFinallyTask, onRemove, check, ativo }
 }
 
 const styles = {
-  container: {
-    width: 327,
-    height: 64,
-    borderRadius: 8,
-    backgroundColor: "#262626",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    marginBottom: 20,
-    padding: 15,
-  },
   ativo: {
     fontSize: 14,
     color: "#F2F2F2",
