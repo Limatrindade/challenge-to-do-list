@@ -3,7 +3,7 @@
 | :placard: Vitrine.Dev | Matheus da Trindade Lima                                                                  |
 | --------------------- | ----------------------------------------------------------------------------------------- |
 | :sparkles: Name       | **App To do list**                                                    |
-| :label: Technologies  | React Ntive, TypeScript                                          |
+| :label: Technologies  | React Native, TypeScript                                          |
 | :bulb: Skills         | Resolvendo um desafio proposto pelo time da Rockseat
 
 # App 
